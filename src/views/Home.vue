@@ -93,7 +93,9 @@
           </el-breadcrumb>
 
           <div style="padding: 10px 0">
-            <el-input style="width: 200px" placeholder="请输入" suffix-icon="el-icon-search" class="ml-5" v-model="uname" ></el-input>
+            <el-input style="width: 200px" placeholder="请输入姓名" suffix-icon="el-icon-search" class="ml-5" v-model="uname" ></el-input>
+            <el-input style="width: 200px" placeholder="请输入邮箱" suffix-icon="el-icon-search" class="ml-5" v-model="email" ></el-input>
+            <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-search" class="ml-5" v-model="location" ></el-input>
 
             <el-button  class="ml-5" icon="el-icon-search" circle @click="load"></el-button>
           </div>
@@ -153,6 +155,8 @@ export default {
       logoTextShow:true,
       headerBg:'headerBg',
       uname:'',
+      email:'',
+      location:'',
       pageNum:1,
       pageSize:5
 
@@ -190,10 +194,12 @@ export default {
       //请求分页数据
       fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+
               "&pageSize="+this.pageSize+
-              "&uname="+this.uname)
+              "&uname="+this.uname+
+              "&email="+this.email+
+              "&location="+this.location)
               .then(res => res.json()).then(res => {
         console.log(res)
-        this.tableData = res.data
+        this.tableData = res.records
         this.total = res.total
       })
     }
