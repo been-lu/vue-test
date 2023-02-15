@@ -93,27 +93,27 @@
           </el-breadcrumb>
 
           <div style="padding: 10px 0">
-            <el-input style="width: 200px" placeholder="请输入" suffix-icon="el-icon-search" class="ml-5"  v-model="input"></el-input>
-            <el-button class="ml-5" type="primary">search</el-button>
+            <el-input style="width: 200px" placeholder="请输入" suffix-icon="el-icon-search" class="ml-5" v-model="uname" ></el-input>
+
+            <el-button  class="ml-5" icon="el-icon-search" circle @click="load"></el-button>
           </div>
 
           <div style="margin: 10px">
-            <el-button type="primary">add<i class="el-icon-circle-plus-outline"></i></el-button>
-            <el-button type="danger">delete all<i class="el-icon-remove-outline"></i></el-button>
+            <el-button type="primary">新增<i class="el-icon-circle-plus-outline"></i></el-button>
+            <el-button type="danger">删除全部<i class="el-icon-remove-outline"></i></el-button>
           </div>
 
           <el-table :data="tableData" border stripe header-cell-class-name="headerBg">
-            <el-table-column prop="date" label="日期" width="140">
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="120">
-            </el-table-column>
-            <el-table-column prop="address" label="地址">
-            </el-table-column>
+            <el-table-column prop="uname" label="姓名" width="80"></el-table-column>
+            <el-table-column prop="uid" label="ID" width="200"></el-table-column>
+            <el-table-column prop="email" label="邮箱" width="200"></el-table-column>
+            <el-table-column prop="location" label="地址" width="120"></el-table-column>
+            <el-table-column prop="age" label="年龄" width="80"></el-table-column>
+            <el-table-column prop="others" label="备注"></el-table-column>
             <el-table-column>
              <template slot-scope="scope">
-               <el-button type="success">edit<i class="el-icon-edit"></i> </el-button>
-               <el-button type="danger"> delete <i class="el-icon-remove-outline"></i> </el-button>
-
+               <el-button type="primary" icon="el-icon-edit" circle></el-button>
+               <el-button type="danger" icon="el-icon-delete" circle></el-button>
              </template>
             </el-table-column>
           </el-table>
@@ -122,11 +122,11 @@
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage4"
-                    :page-sizes="[5, 10, 15, 20]"
-                    :page-size="10"
+                    :current-page="pageNum"
+                    :page-sizes="[3, 5, 10]"
+                    :page-size="pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
-                    :total="400">
+                    :total="total">
             </el-pagination>
           </div>
 
@@ -142,25 +142,24 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-
   data(){
-    const item = {
-      date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄',
-
-    };
-
     return{
       msg: "hello vue",
-      tableData: Array(10).fill(item),
+      total:0,
+      tableData: [],
       collapseBtnClass:'el-icon-s-fold',
       isCollapse:false,
       sideWidth:200,
       logoTextShow:true,
       headerBg:'headerBg',
-      input: ''
+      uname:'',
+      pageNum:1,
+      pageSize:5
+
     }
+  },
+  created() {
+    this.load()
   },
   methods:{
     collapse(){
@@ -175,6 +174,28 @@ export default {
         this.collapseBtnClass = 'el-icon-s-fold'
         this.logoTextShow=true
       }
+    },
+    handleSizeChange(pageSize){
+      console.log(pageSize)
+      this.pageSize=pageSize
+      this.load()
+    },
+    handleCurrentChange(pageNum){
+      console.log(pageNum)
+      this.pageNum=pageNum
+      this.load()
+    },
+    load(){
+
+      //请求分页数据
+      fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+
+              "&pageSize="+this.pageSize+
+              "&uname="+this.uname)
+              .then(res => res.json()).then(res => {
+        console.log(res)
+        this.tableData = res.data
+        this.total = res.total
+      })
     }
   }
 }
