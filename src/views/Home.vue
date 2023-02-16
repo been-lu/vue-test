@@ -94,14 +94,15 @@
 
           <div style="padding: 10px 0">
             <el-input style="width: 200px" placeholder="请输入姓名" suffix-icon="el-icon-search" class="ml-5" v-model="uname" ></el-input>
-            <el-input style="width: 200px" placeholder="请输入邮箱" suffix-icon="el-icon-search" class="ml-5" v-model="email" ></el-input>
-            <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-search" class="ml-5" v-model="location" ></el-input>
+            <el-input style="width: 200px" placeholder="请输入邮箱" suffix-icon="el-icon-message" class="ml-5" v-model="email" ></el-input>
+            <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-location" class="ml-5" v-model="location" ></el-input>
+            <el-button  class="ml-5" type="primary" icon="el-icon-search" circle @click="load"></el-button>
+            <el-button  class="ml-5" type="warning" icon="el-icon-refresh" circle @click="reset"></el-button>
 
-            <el-button  class="ml-5" icon="el-icon-search" circle @click="load"></el-button>
           </div>
 
           <div style="margin: 10px">
-            <el-button type="primary">新增<i class="el-icon-circle-plus-outline"></i></el-button>
+            <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus-outline"></i></el-button>
             <el-button type="danger">删除全部<i class="el-icon-remove-outline"></i></el-button>
           </div>
 
@@ -114,7 +115,7 @@
             <el-table-column prop="others" label="备注"></el-table-column>
             <el-table-column>
              <template slot-scope="scope">
-               <el-button type="primary" icon="el-icon-edit" circle></el-button>
+               <el-button type="success" icon="el-icon-edit" circle @click="handleEdit(scope.row)"></el-button>
                <el-button type="danger" icon="el-icon-delete" circle></el-button>
              </template>
             </el-table-column>
@@ -132,6 +133,28 @@
             </el-pagination>
           </div>
 
+
+          <el-dialog title="用户信息" :visible.sync="dialogFormVisible" width="40%" >
+            <el-form  label-width="80px" size="small">
+              <el-form-item label="用户名" :label-width="formLabelWidth">
+                <el-input v-model="form.uname" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="邮箱" :label-width="formLabelWidth">
+                <el-input v-model="form.email" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="地址" :label-width="formLabelWidth">
+                <el-input v-model="form.location" autocomplete="off"></el-input>
+              </el-form-item
+              ><el-form-item label="备注" :label-width="formLabelWidth">
+                <el-input v-model="form.others" autocomplete="off"></el-input>
+              </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">取 消</el-button>
+              <el-button type="primary" @click="addUser">确 定</el-button>
+            </div>
+          </el-dialog>
+
         </el-main>
       </el-container>
     </el-container>
@@ -141,24 +164,32 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import request from "../utils/request";
 
 export default {
   name: 'Home',
   data(){
     return{
       msg: "hello vue",
-      total:0,
-      tableData: [],
+
       collapseBtnClass:'el-icon-s-fold',
       isCollapse:false,
       sideWidth:200,
       logoTextShow:true,
       headerBg:'headerBg',
+
+      //分页查询的参数
+      total:0,
+      tableData: [],
       uname:'',
       email:'',
       location:'',
       pageNum:1,
-      pageSize:5
+      pageSize:5,
+
+      //弹出表单的参数
+      dialogFormVisible:false,
+      form:{},
 
     }
   },
@@ -167,6 +198,7 @@ export default {
   },
   methods:{
     collapse(){
+      //侧边栏折叠与展开
       this.isCollapse =!this.isCollapse
       if (this.isCollapse){
         this.sideWidth=64
@@ -180,28 +212,72 @@ export default {
       }
     },
     handleSizeChange(pageSize){
+      //选择分页大小
       console.log(pageSize)
       this.pageSize=pageSize
       this.load()
     },
     handleCurrentChange(pageNum){
+      //选择分页页号
       console.log(pageNum)
       this.pageNum=pageNum
       this.load()
     },
-    load(){
+    reset(){
+      //充值所有搜索框
+      this.uname=''
+      this.email=''
+      this.location=''
+      this.load()
+    },
+    handleAdd(){
+      //添加用户弹窗
+      this.dialogFormVisible= true
+      this.form={}
+    },
+    handleEdit(row){
+      this.form = row
+      this.dialogFormVisible=true
 
-      //请求分页数据
-      fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+
-              "&pageSize="+this.pageSize+
-              "&uname="+this.uname+
-              "&email="+this.email+
-              "&location="+this.location)
-              .then(res => res.json()).then(res => {
-        console.log(res)
-        this.tableData = res.records
-        this.total = res.total
+    },
+    addUser(){
+      //添加用户弹窗的确认键
+      request.post("http://localhost:9090/user/saveOrUpdate",this.form).then(res=>{
+        if (res){
+          this.$message.success("添加成功")
+        }
+        else{
+          this.$message.error("添加失败，改用户信箱已注册")
+        }
+        this.dialogFormVisible=false
+        this.load()
       })
+    },
+    load(){
+      //获取分页用户数据
+      request.get("http://localhost:9090/user/page",{
+        params:{
+          pageNum:this.pageNum,
+          pageSize:this.pageSize,
+          uname:this.uname,
+          email:this.email,
+          location:this.location
+        }}).then(res=>{
+        console.log(res)
+          this.tableData = res.records
+          this.total = res.total
+      })
+      //请求分页数据
+      // fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+
+      //         "&pageSize="+this.pageSize+
+      //         "&uname="+this.uname+
+      //         "&email="+this.email+
+      //         "&location="+this.location)
+      //         .then(res => res.json()).then(res => {
+      //   console.log(res)
+      //   this.tableData = res.records
+      //   this.total = res.total
+      // })
     }
   }
 }
