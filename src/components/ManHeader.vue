@@ -1,7 +1,9 @@
 <template>
-    <div style="line-height: 60px;display: flex; font-size: 12px; ">
-        <div style="flex: 1; font-size: 20px; " >
+    <div style="line-height: 60px;display: flex;  ">
+        <div style="flex: 1; font-size: 18px; ">
             <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
+
+
         </div>
         <el-dropdown style="width: 100px;cursor: pointer">
             <span>Name</span><i class="el-icon-arrow-down" style="margin-right: 15px"></i>
@@ -19,7 +21,17 @@
         props: {
             collapseBtnClass:String,
             collapse:Function
+        },
+        data(){
+            return{
+                paths:[],
+
+            }
+        },
+        created() {
+            console.log(this.$route)
         }
+
     }
 </script>
 

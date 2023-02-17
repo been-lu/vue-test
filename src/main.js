@@ -11,6 +11,11 @@ Vue.config.productionTip = false
 Vue.use(ElementUI,{size: "mini"});
 Vue.prototype.request=request
 
+const globalName=''
+const globalId=''
+const globalType=''
+
+
 new Vue({
   router,
   render: h => h(App)
