@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div style="margin: 200px auto; background-color: #fff; width: 350px; height: 280px; padding: 20px; border-radius: 10px">
             <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>律师登录</b></div>
-            <el-form :model="user" :rules="rules" ref="userForm">
+            <el-form :model="lawyer" :rules="rules" >
                 <el-form-item prop="aname">
                     <el-input size="medium" prefix-icon="el-icon-user" v-model="lawyer.lname"></el-input>
                 </el-form-item>
@@ -34,7 +34,7 @@
 <style>
     .wrapper {
         height: 100vh;
-        background-image: linear-gradient(to bottom right, #FC466B, #3F5EFB);
+        background-image: linear-gradient(to bottom right, #d39539, #b212b0);
         overflow: hidden;
     }
 </style>
