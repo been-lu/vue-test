@@ -7,9 +7,11 @@
         </div>
         <el-dropdown style="width: 100px;cursor: pointer">
             <span>Name</span><i class="el-icon-arrow-down" style="margin-right: 15px"></i>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>个人信息</el-dropdown-item>
-                <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-menu slot="dropdown" style="width: 100px;text-align: center">
+                <el-dropdown-item style="font-size: 14px;padding: 5px 0" >个人信息</el-dropdown-item>
+                <el-dropdown-item  style="font-size: 14px;padding: 5px 0">
+                    <router-link to="/manlogin"  style="text-decoration: none">退出</router-link>
+                </el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
     </div>
@@ -30,6 +32,9 @@
         },
         created() {
             console.log(this.$route)
+        },
+        methods:{
+
         }
 
     }
