@@ -42,10 +42,11 @@
                 this.$refs['lawyerForm'].validate((valid) => {
                     if (valid) {
                         this.request.post("http://localhost:9090/lawyer/login", this.lawyer).then(res => {
-                            if (!res) {
-                                this.$message.error("用户名或密码错误")
-                            } else {
+                            if (res.code==='200') {
                                 this.$router.push("/lawyer")
+
+                            } else {
+                                this.$message.error("用户名或密码错误")
                             }
                         })
                     } else {

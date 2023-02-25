@@ -42,10 +42,11 @@
                 this.$refs['userForm'].validate((valid) => {
                     if (valid) {
                         this.request.post("http://localhost:9090/user/login", this.user).then(res => {
-                            if (!res) {
-                                this.$message.error("用户名或密码错误")
-                            } else {
+                            if (res.code==='200') {
                                 this.$router.push("/user")
+
+                            } else {
+                                this.$message.error("用户名或密码错误")
                             }
                         })
                     } else {

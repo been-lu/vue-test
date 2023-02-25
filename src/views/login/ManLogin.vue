@@ -42,11 +42,11 @@
                 this.$refs['adminForm'].validate((valid) => {
                     if (valid) {
                         this.request.post("http://localhost:9090/admin/login",this.admin).then(res => {
-                            if (!res){
-                                this.$message.error("用户名或密码错误")
+                            if (res.code==='200'){
+                                this.$router.push("/man")
                             }
                             else{
-                                this.$router.push("/man")
+                                this.$message.error("用户名或密码错误")
                             }
                         })
                     } else {
