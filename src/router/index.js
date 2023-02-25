@@ -28,9 +28,9 @@ const routes = [
     component: () => import( '../views/Login'),
     redirect:"/userLogin",
     children: [
-      {path: 'ManLogin', name: 'ManLogin', component: () => import( '../views/ManLogin.vue'),},
-      {path: 'UserLogin', name: 'UserLogin', component: () => import( '../views/UserLogin.vue'),},
-      {path: 'LawyerLogin', name: 'LawyerLogin', component: () => import( '../views/LawyerLogin.vue'),}
+      {path: 'ManLogin', name: 'ManLogin', component: () => import( '../views/login/ManLogin.vue'),},
+      {path: 'UserLogin', name: 'UserLogin', component: () => import( '../views/login/UserLogin.vue'),},
+      {path: 'LawyerLogin', name: 'LawyerLogin', component: () => import( '../views/login/LawyerLogin.vue'),}
     ]
   },
 

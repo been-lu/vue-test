@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div style="margin: 200px auto; background-color: #fff; width: 350px; height: 280px; padding: 20px; border-radius: 10px">
             <div style="margin: 20px 0; text-align: center; font-size: 24px"><b>登 录</b></div>
-            <el-form :model="user" :rules="rules" ref="userFrom">
+            <el-form :model="user" :rules="rules" ref="userForm">
                 <el-form-item prop="email">
                     <el-input size="medium" prefix-icon="el-icon-user" v-model="user.email"></el-input>
                 </el-form-item>
@@ -45,7 +45,7 @@
                             if (!res) {
                                 this.$message.error("用户名或密码错误")
                             } else {
-                                this.$router.push("/man")
+                                this.$router.push("/user")
                             }
                         })
                     } else {
