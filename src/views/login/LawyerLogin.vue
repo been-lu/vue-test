@@ -11,9 +11,10 @@
                               v-model="lawyer.pwd"></el-input>
                 </el-form-item>
                 <el-form-item style="margin: 10px 0; text-align: right">
-                    <el-button type="warning" size="small" autocomplete="off" @click="$router.push('/register')">注册
+                    <el-button type="warning" size="small" autocomplete="off" @click="register">注册
                     </el-button>
                     <el-button type="primary" size="small" autocomplete="off" @click="login">登录</el-button>
+
                 </el-form-item>
             </el-form>
         </div>
@@ -57,6 +58,22 @@
                     }
                 })
 
+            },
+            register(){
+                this.$refs['lawyerForm'].validate((valid) => {
+                    if (valid) {
+                        this.request.post("http://localhost:9090/lawyer/register", this.lawyer).then(res => {
+                            if (res.code==='200') {
+                                this.$message.success("注成功")
+                            } else {
+                                this.$message.error(res.msg)
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                })
             }
         }
     }

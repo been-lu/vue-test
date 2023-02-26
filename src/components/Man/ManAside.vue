@@ -61,6 +61,9 @@
             msg: String,
             isCollapse: Boolean,
             logoTextShow: Boolean,
+        },
+        data(){
+            return{}
         }
     }
 </script>

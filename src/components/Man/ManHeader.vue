@@ -10,7 +10,7 @@
             <el-dropdown-menu slot="dropdown" style="width: 100px;text-align: center">
                 <el-dropdown-item style="font-size: 14px;padding: 5px 0" >个人信息</el-dropdown-item>
                 <el-dropdown-item  style="font-size: 14px;padding: 5px 0">
-                    <router-link to="/manlogin"  style="text-decoration: none">退出</router-link>
+                    <span  style="text-decoration: none" @click="logout">退出</span>
                 </el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
@@ -34,7 +34,11 @@
             console.log(this.$route)
         },
         methods:{
-
+            logout(){
+                this.$router.push("/manLogin")
+                localStorage.removeItem("admin")
+                this.$message.success("退出成功")
+            }
         }
 
     }

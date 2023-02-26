@@ -11,9 +11,11 @@
                               v-model="user.pwd"></el-input>
                 </el-form-item>
                 <el-form-item style="margin: 10px 0; text-align: right">
-                    <el-button type="warning" size="small" autocomplete="off">注册
+                    <el-button type="warning" size="small" autocomplete="off" @click="register">注册
                     </el-button>
                     <el-button type="primary" size="small" autocomplete="off" @click="login">登录</el-button>
+
+
                 </el-form-item>
             </el-form>
         </div>
@@ -57,6 +59,22 @@
                     }
                 })
 
+            },
+            register(){
+                this.$refs['userForm'].validate((valid) => {
+                    if (valid) {
+                        this.request.post("http://localhost:9090/user/register", this.user).then(res => {
+                            if (res.code==='200') {
+                                this.$message.success("注册成功")
+                            } else {
+                                this.$message.error(res.msg)
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                })
             }
         }
     }
