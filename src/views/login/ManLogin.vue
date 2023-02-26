@@ -43,10 +43,13 @@
                     if (valid) {
                         this.request.post("http://localhost:9090/admin/login",this.admin).then(res => {
                             if (res.code==='200'){
+                                localStorage.setItem("admin",JSON.stringify(res.data))
+                                this.$message.success("登陆成功")
                                 this.$router.push("/man")
+
                             }
                             else{
-                                this.$message.error("用户名或密码错误")
+                                this.$message.error(res.msg)
                             }
                         })
                     } else {

@@ -43,6 +43,8 @@
                     if (valid) {
                         this.request.post("http://localhost:9090/user/login", this.user).then(res => {
                             if (res.code==='200') {
+                                localStorage.setItem("user",JSON.stringify(res.data))
+                                this.$message.success("登陆成功")
                                 this.$router.push("/user")
 
                             } else {

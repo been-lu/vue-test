@@ -7,11 +7,13 @@ const routes = [
   {
     path: '/Man',
     name: 'Manage',
-    component: () => import( '../views/Manage.vue'),
+    component: () => import( '../views/admin/Manage.vue'),
     redirect:"/Man/Manhome",
     children: [
-      {path: 'ManUser', name: 'ManUser', component: () => import( '../views/ManUser.vue'),},
-      {path: 'ManHome', name: 'ManHome', component: () => import( '../views/ManHome.vue'),}
+      {path: 'ManUser', name: 'ManUser', component: () => import( '../views/admin/ManUser.vue'),},
+      {path: 'ManHome', name: 'ManHome', component: () => import( '../views/admin/ManHome.vue'),},
+      {path: 'ManAdmin', name: 'ManAdmin', component: () => import( '../views/admin/ManAdmin.vue'),},
+      {path: 'ManLawyer', name: 'ManLawyer', component: () => import( '../views/admin/ManLawyer.vue'),},
     ]
   },
   {

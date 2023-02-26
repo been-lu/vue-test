@@ -43,10 +43,12 @@
                     if (valid) {
                         this.request.post("http://localhost:9090/lawyer/login", this.lawyer).then(res => {
                             if (res.code==='200') {
+                                localStorage.setItem("lawyer",JSON.stringify(res.data))
+                                this.$message.success("登陆成功")
                                 this.$router.push("/lawyer")
 
                             } else {
-                                this.$message.error("用户名或密码错误")
+                                this.$message.error(res.msg)
                             }
                         })
                     } else {

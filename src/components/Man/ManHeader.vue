@@ -6,7 +6,7 @@
 
         </div>
         <el-dropdown style="width: 100px;cursor: pointer">
-            <span>Name</span><i class="el-icon-arrow-down" style="margin-right: 15px"></i>
+            <span>{{admin.aname}}</span><i class="el-icon-arrow-down" style="margin-right: 5px"></i>
             <el-dropdown-menu slot="dropdown" style="width: 100px;text-align: center">
                 <el-dropdown-item style="font-size: 14px;padding: 5px 0" >个人信息</el-dropdown-item>
                 <el-dropdown-item  style="font-size: 14px;padding: 5px 0">
@@ -27,7 +27,7 @@
         data(){
             return{
                 paths:[],
-
+                admin:localStorage.getItem("admin")? JSON.parse(localStorage.getItem("admin")):{},
             }
         },
         created() {

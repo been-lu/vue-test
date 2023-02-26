@@ -27,8 +27,8 @@
 <script>
 // @ is an alias to /src
 
-import ManAside from "../components/ManAside";
-import ManHeader from "../components/ManHeader";
+import ManAside from "../../components/Man/ManAside";
+import ManHeader from "../../components/Man/ManHeader";
 
 export default {
   name: 'Home',

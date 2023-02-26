@@ -1,7 +1,5 @@
 <template>
     <div>
-
-
         <div style="padding: 10px 0">
             <el-input style="width: 200px" placeholder="请输入姓名" suffix-icon="el-icon-search" class="ml-5" v-model="uname" ></el-input>
             <el-input style="width: 200px" placeholder="请输入邮箱" suffix-icon="el-icon-message" class="ml-5" v-model="email" ></el-input>
@@ -79,7 +77,6 @@
         name: "ManUser",
         data(){
             return{
-
                 headerBg:'headerBg',
                 //分页查询的参数
                 total:0,
@@ -152,7 +149,7 @@
                         location:this.location
                     }}).then(res=>{
                     console.log(res)
-                    this.tableData = res.records
+                    this.tableData = res.data.records
                     this.total = res.total
                 })
                 //请求分页数据
