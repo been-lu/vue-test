@@ -14,6 +14,7 @@ const routes = [
       {path: 'ManHome', name: 'ManHome', component: () => import( '../views/admin/ManHome.vue'),},
       {path: 'ManAdmin', name: 'ManAdmin', component: () => import( '../views/admin/ManAdmin.vue'),},
       {path: 'ManLawyer', name: 'ManLawyer', component: () => import( '../views/admin/ManLawyer.vue'),},
+      {path: 'ManPerson', name: 'ManPerson', component: () => import( '../views/admin/Person.vue'),},
     ]
   },
   {
