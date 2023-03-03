@@ -18,6 +18,28 @@ const routes = [
     ]
   },
   {
+    path: '/User',
+    name: 'User',
+    component: () => import( '../views/user/User.vue'),
+    redirect:"/User/UserHome",
+    children: [
+      {path: 'UserHome', name: 'UserHome', component: () => import( '../views/user/UserHome.vue'),},
+      {path: 'UserPerson', name: 'UserPerson', component: () => import( '../views/user/Person.vue'),},
+
+    ]
+  },
+  {
+    path: '/Lawyer',
+    name: 'Lawyer',
+    component: () => import( '../views/lawyer/Lawyer.vue'),
+    redirect:"/Lawyer/LawyerHome",
+    children: [
+      {path: 'LawyerHome', name: 'LawyerHome', component: () => import( '../views/lawyer/LawyerHome.vue'),},
+      {path: 'LawyerPerson', name: 'LawyerPerson', component: () => import( '../views/lawyer/Person.vue'),},
+
+    ]
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

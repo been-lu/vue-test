@@ -4,10 +4,10 @@
             <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
         </div>
         <el-dropdown style="width: 100px;cursor: pointer">
-            <span>{{admin.aname}}</span><i class="el-icon-arrow-down" style="margin-right: 5px"></i>
+            <span>{{user.uname}}</span><i class="el-icon-arrow-down" style="margin-right: 5px"></i>
             <el-dropdown-menu slot="dropdown" style="width: 100px;text-align: center">
                 <el-dropdown-item style="font-size: 14px;padding: 5px 0" >
-                   <router-link to="/Man/ManPerson">个人信息</router-link>
+                    <router-link to="/User/UserPerson">个人信息</router-link>
                 </el-dropdown-item>
                 <el-dropdown-item  style="font-size: 14px;padding: 5px 0">
                     <span  style="text-decoration: none" @click="logout">退出</span>
@@ -19,7 +19,7 @@
 
 <script>
     export default {
-        name: "ManHeader",
+        name: "UserHeader",
         props: {
             collapseBtnClass:String,
             collapse:Function
@@ -27,7 +27,7 @@
         data(){
             return{
                 paths:[],
-                admin:localStorage.getItem("admin")? JSON.parse(localStorage.getItem("admin")):{},
+                user:localStorage.getItem("user")? JSON.parse(localStorage.getItem("user")):{},
             }
         },
         created() {
@@ -35,13 +35,11 @@
         },
         methods:{
             logout(){
-                this.$router.push("/manLogin")
-                localStorage.clear()
-                localStorage.removeItem("admin")
+                this.$router.push("/userLogin")
+                localStorage.removeItem("user")
                 this.$message.success("退出成功")
             }
         }
-
     }
 </script>
 

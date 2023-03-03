@@ -65,6 +65,7 @@
                         this.request.post("http://localhost:9090/lawyer/register", this.lawyer).then(res => {
                             if (res.code==='200') {
                                 this.$message.success("注成功")
+
                             } else {
                                 this.$message.error(res.msg)
                             }
