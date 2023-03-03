@@ -22,8 +22,18 @@ const request = axios.create({
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
-
-    // config.headers['token'] = user.token;  // 设置请求头
+    let user=localStorage.getItem("user") ?JSON.parse(localStorage.getItem("user")):null;
+    let admin=localStorage.getItem("admin") ?JSON.parse(localStorage.getItem("admin")):null;
+    let lawyer=localStorage.getItem("lawyer") ?JSON.parse(localStorage.getItem("lawyer")):null;
+    if (user){
+        config.headers['token'] = user.token;  // 设置请求头
+    }
+    if (lawyer){
+        config.headers['token'] = lawyer.token;  // 设置请求头
+    }
+    if (admin){
+        config.headers['token'] = admin.token;  // 设置请求头
+    }
     return config
 }, error => {
     return Promise.reject(error)
