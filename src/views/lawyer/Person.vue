@@ -4,11 +4,23 @@
             <el-form-item label="用户名">
                 <el-input v-model="form.lname" autocomplete="off" ></el-input>
             </el-form-item>
-            <el-form-item label="用户名">
+            <el-form-item label="ID">
                 <el-input v-model="form.lid" autocomplete="off" :disabled="true" ></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱">
+                <el-input v-model="form.email" autocomplete="off" :disabled="true" ></el-input>
             </el-form-item>
             <el-form-item label="密码">
                 <el-input v-model="form.pwd" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="认证状态">
+                <el-input v-model="form.status" autocomplete="off" :disabled="true" ></el-input>
+            </el-form-item>
+            <el-form-item label="年龄">
+                <el-input v-model="form.age" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="地址">
+                <el-input v-model="form.location" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="备注">
                 <el-input v-model="form.others" autocomplete="off"></el-input>
@@ -39,7 +51,9 @@
                     else{
                         this.$message.error(res.msg)
                     }
-
+                    if (res.code === '401') {
+                        this.$router.push("/ManLogin")
+                    }
 
                 })
             },

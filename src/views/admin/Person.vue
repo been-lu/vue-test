@@ -39,7 +39,9 @@
                     else{
                         this.$message.error(res.msg)
                     }
-
+                    if (res.code === '401') {
+                        this.$router.push("/ManLogin")
+                    }
 
                 })
             },

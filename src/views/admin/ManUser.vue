@@ -1,11 +1,14 @@
 <template>
     <div>
         <div style="padding: 10px 0">
-            <el-input style="width: 200px" placeholder="请输入姓名" suffix-icon="el-icon-search" class="ml-5" v-model="uname" ></el-input>
-            <el-input style="width: 200px" placeholder="请输入邮箱" suffix-icon="el-icon-message" class="ml-5" v-model="email" ></el-input>
-            <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-location" class="ml-5" v-model="location" ></el-input>
-            <el-button  class="ml-5" type="primary" icon="el-icon-search" circle @click="load"></el-button>
-            <el-button  class="ml-5" type="warning" icon="el-icon-refresh" circle @click="reset"></el-button>
+            <el-input style="width: 200px" placeholder="请输入姓名" suffix-icon="el-icon-search" class="ml-5"
+                      v-model="uname"></el-input>
+            <el-input style="width: 200px" placeholder="请输入邮箱" suffix-icon="el-icon-message" class="ml-5"
+                      v-model="email"></el-input>
+            <el-input style="width: 200px" placeholder="请输入地址" suffix-icon="el-icon-location" class="ml-5"
+                      v-model="location"></el-input>
+            <el-button class="ml-5" type="primary" icon="el-icon-search" circle @click="load"></el-button>
+            <el-button class="ml-5" type="warning" icon="el-icon-refresh" circle @click="reset"></el-button>
 
         </div>
 
@@ -31,7 +34,7 @@
                             icon-color="blue"
                             title="删除达咩"
                     >
-                        <el-button  type="danger" icon="el-icon-delete" circle slot="reference"></el-button>
+                        <el-button type="danger" icon="el-icon-delete" circle slot="reference"></el-button>
                     </el-popconfirm>
 
                 </template>
@@ -49,20 +52,21 @@
                     :total="total">
             </el-pagination>
         </div>
-        <el-dialog title="用户信息" :visible.sync="dialogFormVisible" width="40%" >
-            <el-form  label-width="80px" size="small">
-                <el-form-item label="用户名" >
+        <el-dialog title="用户信息" :visible.sync="dialogFormVisible" width="40%">
+            <el-form label-width="80px" size="small">
+                <el-form-item label="用户名">
                     <el-input v-model="form.uname" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="邮箱" >
+                <el-form-item label="邮箱">
                     <el-input v-model="form.email" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="地址">
                     <el-input v-model="form.location" autocomplete="off"></el-input>
                 </el-form-item
-                ><el-form-item label="备注" >
-                <el-input v-model="form.others" autocomplete="off"></el-input>
-            </el-form-item>
+                >
+                <el-form-item label="备注">
+                    <el-input v-model="form.others" autocomplete="off"></el-input>
+                </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -75,94 +79,89 @@
 <script>
     export default {
         name: "ManUser",
-        data(){
-            return{
-                headerBg:'headerBg',
+        data() {
+            return {
+                headerBg: 'headerBg',
                 //分页查询的参数
-                total:0,
+                total: 0,
                 tableData: [],
-                uname:'',
-                email:'',
-                location:'',
-                pageNum:1,
-                pageSize:5,
+                uname: '',
+                email: '',
+                location: '',
+                pageNum: 1,
+                pageSize: 5,
 
                 //弹出表单的参数
-                dialogFormVisible:false,
-                form:{},
+                dialogFormVisible: false,
+                form: {},
             }
         },
         created() {
             this.load()
         },
-        methods:{
-            handleSizeChange(pageSize){
+        methods: {
+            handleSizeChange(pageSize) {
                 //选择分页大小
                 console.log(pageSize)
-                this.pageSize=pageSize
+                this.pageSize = pageSize
                 this.load()
             },
-            handleCurrentChange(pageNum){
+            handleCurrentChange(pageNum) {
                 //选择分页页号
                 console.log(pageNum)
-                this.pageNum=pageNum
+                this.pageNum = pageNum
                 this.load()
             },
-            reset(){
+            reset() {
                 //充值所有搜索框
-                this.uname=''
-                this.email=''
-                this.location=''
+                this.uname = ''
+                this.email = ''
+                this.location = ''
                 this.load()
             },
-            handleAdd(){
+            handleAdd() {
                 //添加用户弹窗
-                this.dialogFormVisible= true
-                this.form={}
+                this.dialogFormVisible = true
+                this.form = {}
             },
-            handleEdit(row){
+            handleEdit(row) {
                 this.form = row
-                this.dialogFormVisible=true
+                this.dialogFormVisible = true
 
             },
-            addUser(){
+            addUser() {
                 //添加用户弹窗的确认键
-                this.request.post("http://localhost:9090/user/saveOrUpdate",this.form).then(res=>{
-                    if (res){
+                this.request.post("http://localhost:9090/user/saveOrUpdate", this.form).then(res => {
+                    if (res.code === '200') {
                         this.$message.success("添加成功")
-                    }
-                    else{
+                    } else {
                         this.$message.error("添加失败，改用户信箱已注册")
                     }
-                    this.dialogFormVisible=false
+                    this.dialogFormVisible = false
                     this.load()
                 })
             },
-            load(){
+            load() {
                 //获取分页用户数据
-                this.request.get("http://localhost:9090/user/page",{
-                    params:{
-                        pageNum:this.pageNum,
-                        pageSize:this.pageSize,
-                        uname:this.uname,
-                        email:this.email,
-                        location:this.location
-                    }}).then(res=>{
+                this.request.get("http://localhost:9090/user/page", {
+                    params: {
+                        pageNum: this.pageNum,
+                        pageSize: this.pageSize,
+                        uname: this.uname,
+                        email: this.email,
+                        location: this.location
+                    }
+                }).then(res => {
                     console.log(res)
-                    this.tableData = res.data.records
-                    this.total = res.total
+                    if (res.code === '200') {
+                        this.tableData = res.data.records
+                        this.total = res.data.total
+                    }
+                    if (res.code === '401') {
+                        this.$router.push("/ManLogin")
+                    }
                 })
-                //请求分页数据
-                // fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+
-                //         "&pageSize="+this.pageSize+
-                //         "&uname="+this.uname+
-                //         "&email="+this.email+
-                //         "&location="+this.location)
-                //         .then(res => res.json()).then(res => {
-                //   console.log(res)
-                //   this.tableData = res.records
-                //   this.total = res.total
-                // })
+
             }
         },
 
@@ -171,7 +170,7 @@
 
 
 <style>
-    .headerBg{
-        background-color: #ccc!important;
+    .headerBg {
+        background-color: #ccc !important;
     }
 </style>

@@ -1,5 +1,7 @@
 import axios from 'axios'
 import JSONBIG from 'json-bigint'
+import ElementUI from "element-ui"
+
 
 //解决丢失精度问题
 axios.defaults.transformResponse = [
@@ -22,16 +24,16 @@ const request = axios.create({
 // 比如统一加token，对请求参数统一加密
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json;charset=utf-8';
-    let user=localStorage.getItem("user") ?JSON.parse(localStorage.getItem("user")):null;
-    let admin=localStorage.getItem("admin") ?JSON.parse(localStorage.getItem("admin")):null;
-    let lawyer=localStorage.getItem("lawyer") ?JSON.parse(localStorage.getItem("lawyer")):null;
-    if (user){
+    let user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+    let admin = localStorage.getItem("admin") ? JSON.parse(localStorage.getItem("admin")) : null;
+    let lawyer = localStorage.getItem("lawyer") ? JSON.parse(localStorage.getItem("lawyer")) : null;
+    if (user) {
         config.headers['token'] = user.token;  // 设置请求头
     }
-    if (lawyer){
+    if (lawyer) {
         config.headers['token'] = lawyer.token;  // 设置请求头
     }
-    if (admin){
+    if (admin) {
         config.headers['token'] = admin.token;  // 设置请求头
     }
     return config
@@ -51,6 +53,13 @@ request.interceptors.response.use(
         // 兼容服务端返回的字符串数据
         if (typeof res === 'string') {
             res = res ? JSON.parse(res) : res
+        }
+        //权限验证失败提示
+        if (res.code === '401') {
+            ElementUI.Message({
+                message: res.msg,
+                type: "error"
+            })
         }
         return res;
     },

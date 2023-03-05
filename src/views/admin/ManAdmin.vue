@@ -83,8 +83,13 @@
                         pageSize:this.pageSize,
                     }}).then(res=>{
                     console.log(res)
-                    this.tableData = res.data.records
-                    this.total = res.total
+                    if (res.code === '200') {
+                        this.tableData = res.data.records
+                        this.total = res.data.total
+                    }
+                    if (res.code==='401'){
+                        this.$router.push("/manlogin")
+                    }
                 })
             },
             handleSizeChange(pageSize){

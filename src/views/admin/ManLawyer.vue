@@ -138,7 +138,7 @@
             addUser() {
                 //添加用户弹窗的确认键
                 this.request.post("http://localhost:9090/lawyer/saveOrUpdate", this.form).then(res => {
-                    if (res) {
+                    if (res.code ==='200') {
                         this.$message.success("添加成功")
                     } else {
                         this.$message.error("添加失败，该律师信箱已注册")
@@ -159,8 +159,13 @@
                     }
                 }).then(res => {
                     console.log(res)
-                    this.tableData = res.data.records
-                    this.total = res.total
+                    if (res.code === '200') {
+                        this.tableData = res.data.records
+                        this.total = res.data.total
+                    }
+                    if (res.code==='401'){
+                        this.$router.push("/manlogin")
+                    }
                 })
 
             }

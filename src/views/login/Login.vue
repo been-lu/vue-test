@@ -9,6 +9,13 @@
             return{
 
             }
+        },
+        created(){
+            localStorage.removeItem("admin")
+            localStorage.removeItem("lawyer")
+            localStorage.removeItem("user")
+
+
         }
     }
 </script>
