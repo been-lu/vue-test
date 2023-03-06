@@ -25,8 +25,7 @@
             </template>
             <el-menu-item-group>
                 <template slot="title">事务管理</template>
-                <el-menu-item index="">预约申请</el-menu-item>
-                <el-menu-item index="r">预约管理</el-menu-item>
+                <el-menu-item index="/user/userOrder">预约管理</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
                 <template slot="title">合同管理</template>

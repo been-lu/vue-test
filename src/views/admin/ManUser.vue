@@ -14,7 +14,6 @@
 
         <div style="margin: 10px">
             <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus-outline"></i></el-button>
-            <!--            <el-button type="danger">删除全部<i class="el-icon-remove-outline"></i></el-button>-->
         </div>
 
         <el-table :data="tableData" border stripe header-cell-class-name="headerBg">

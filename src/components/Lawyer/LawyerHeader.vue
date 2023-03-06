@@ -4,7 +4,8 @@
             <span :class="collapseBtnClass" style="cursor: pointer" @click="collapse"></span>
         </div>
         <el-dropdown style="width: 100px;cursor: pointer">
-            <span>{{lawyer.lname}}</span><i class="el-icon-arrow-down" style="margin-right: 5px"></i>
+            <span>{{lawyer.lname}}</span>
+            <i class="el-icon-arrow-down" style="margin-right: 5px"></i>
             <el-dropdown-menu slot="dropdown" style="width: 100px;text-align: center">
                 <el-dropdown-item style="font-size: 14px;padding: 5px 0" >
                     <router-link to="/Lawyer/LawyerPerson">个人信息</router-link>
