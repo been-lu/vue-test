@@ -6,10 +6,14 @@
         </div>
 
         <el-table :data="tableData" border stripe header-cell-class-name="headerBg">
-            <el-table-column prop="oid" label="用户ID" width="80"></el-table-column>
-            <el-table-column prop="状态" label="status" width="200"></el-table-column>
+            <el-table-column prop="oid" label="用户ID" width="80" ></el-table-column>
+            <el-table-column prop="状态" label="status" width="200"  ></el-table-column>
             <el-table-column prop="lid" label="承接律师ID" width="200"></el-table-column>
             <el-table-column prop="others" label="案件描述"></el-table-column>
+            <el-table-column prop="price" label="价格"></el-table-column>
+            <el-table-column prop="description" label="案件信息"></el-table-column>
+
+
             <el-table-column>
                 <template slot-scope="scope">
                     <el-button type="success" icon="el-icon-edit" circle @click="handleEdit(scope.row)"></el-button>
@@ -108,6 +112,8 @@
                         this.total = res.data.total
                     }
                     if (res.code === '401') {
+                        localStorage.clear()
+                        this.$message.error(res.msg)
                         this.$router.push("/UserLogin")
                     }
                 })
