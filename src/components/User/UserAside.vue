@@ -35,8 +35,7 @@
 
             <el-menu-item-group>
                 <template slot="title">消息管理</template>
-                <el-menu-item index="2-4-1">消息提出</el-menu-item>
-                <el-menu-item index="2-4-2">消息查看</el-menu-item>
+                <el-menu-item index="/user/userMsg">消息管理</el-menu-item>
             </el-menu-item-group>
 
         </el-submenu>

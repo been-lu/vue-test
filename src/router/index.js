@@ -15,6 +15,8 @@ const routes = [
       {path: 'ManAdmin', name: 'ManAdmin', component: () => import( '../views/admin/ManAdmin.vue'),},
       {path: 'ManLawyer', name: 'ManLawyer', component: () => import( '../views/admin/ManLawyer.vue'),},
       {path: 'ManPerson', name: 'ManPerson', component: () => import( '../views/admin/Person.vue'),},
+      {path: 'ManMsg', name: 'ManMsg', component: () => import( '../views/admin/ManMsg.vue'),},
+
     ]
   },
   {
@@ -26,6 +28,7 @@ const routes = [
       {path: 'UserHome', name: 'UserHome', component: () => import( '../views/user/UserHome.vue'),},
       {path: 'UserPerson', name: 'UserPerson', component: () => import( '../views/user/Person.vue'),},
       {path: 'UserOrder', name: 'UserOrder', component: () => import( '../views/user/Order.vue'),},
+      {path: 'UserMsg', name: 'UserMsg', component: () => import( '../views/user/Msg.vue'),},
 
     ]
   },

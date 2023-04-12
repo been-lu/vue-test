@@ -6,28 +6,26 @@
         </div>
 
         <el-table :data="tableData" border stripe header-cell-class-name="headerBg">
-            <el-table-column prop="oid" label="用户ID" width="80" ></el-table-column>
-            <el-table-column prop="状态" label="status" width="200"  ></el-table-column>
-            <el-table-column prop="lid" label="承接律师ID" width="200"></el-table-column>
-            <el-table-column prop="others" label="案件描述"></el-table-column>
-            <el-table-column prop="price" label="价格"></el-table-column>
-            <el-table-column prop="description" label="案件信息"></el-table-column>
+            <el-table-column prop="mid" label="MID" width="80" ></el-table-column>
+            <el-table-column prop="status" label="消息状态" width="200"></el-table-column>
+            <el-table-column prop="date" label="创建日期" width="200"></el-table-column>
+            <el-table-column prop="description" label="消息信息" width="200"></el-table-column>
+            <el-table-column prop="others" label="备注" width="200"></el-table-column>
 
+<!--            <el-table-column>-->
+<!--                <template slot-scope="scope">-->
+<!--                    <el-button type="success" icon="el-icon-edit" circle @click="handleEdit(scope.row)"></el-button>-->
+<!--                    <el-popconfirm-->
+<!--                            class="ml-5"-->
+<!--                            confirm-button-text='好的'-->
+<!--                            icon="el-icon-info"-->
+<!--                            icon-color="blue"-->
+<!--                            title="删除达咩">-->
+<!--                        <el-button type="danger" icon="el-icon-delete" circle slot="reference"></el-button>-->
+<!--                    </el-popconfirm>-->
 
-            <el-table-column>
-                <template slot-scope="scope">
-                    <el-button type="success" icon="el-icon-edit" circle @click="handleEdit(scope.row)"></el-button>
-                    <el-popconfirm
-                            class="ml-5"
-                            confirm-button-text='好的'
-                            icon="el-icon-info"
-                            icon-color="blue"
-                            title="删除达咩">
-                        <el-button type="danger" icon="el-icon-delete" circle slot="reference"></el-button>
-                    </el-popconfirm>
-
-                </template>
-            </el-table-column>
+<!--                </template>-->
+<!--            </el-table-column>-->
         </el-table>
 
         <div style="padding: 10px 0">
@@ -44,25 +42,28 @@
 
         <el-dialog title="预约信息" :visible.sync="dialogFormVisible" width="40%">
             <el-form label-width="80px" size="small">
-                <el-form-item label="案件描述">
+                <el-form-item label="信息">
+                    <el-input v-model="form.description" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="描述">
                     <el-input v-model="form.others" autocomplete="off"></el-input>
                 </el-form-item>
+
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="addOrder">确 定</el-button>
+                <el-button type="primary" @click="addMsg">确 定</el-button>
             </div>
         </el-dialog>
     </div>
-
-
 </template>
 
 <script>
     export default {
-        name: "Order",
-        data(){
-            return{
+        name: "Msg",
+        data() {
+            return {
+
                 //分页查询的参数
                 total: 0,
                 tableData: [],
@@ -75,7 +76,7 @@
         created() {
             this.load()
         },
-        methods:{
+        methods: {
             handleSizeChange(pageSize) {
                 //选择分页大小
                 console.log(pageSize)
@@ -88,21 +89,13 @@
                 this.pageNum = pageNum
                 this.load()
             },
-            handleAdd() {
-                //添加预约
-                this.dialogFormVisible = true
-                this.form = {}
-            },
-            handleEdit(row) {
-                this.form = row
-                this.dialogFormVisible = true
-            },
-            load(){
+            load() {
                 //获取分页用户数据
-                this.request.get("http://localhost:9090/order/page", {
+                this.request.get("http://localhost:9090/msg/page", {
                     params: {
                         pageNum: this.pageNum,
                         pageSize: this.pageSize,
+                        findAll: true
                     }
                 }).then(res => {
                     console.log(res)
@@ -117,9 +110,15 @@
                     }
                 })
             },
-            addOrder(){
+            handleAdd() {
+                //添加
+                this.dialogFormVisible = true
+                this.form = {}
+            },
+
+            addMsg(){
                 //添加用户弹窗的确认键
-                this.request.post("http://localhost:9090/order/saveOrUpdate", this.form).then(res => {
+                this.request.post("http://localhost:9090/msg/save", this.form).then(res => {
                     if (res.code === '200') {
                         this.$message.success("添加成功")
                     } else {
@@ -134,7 +133,5 @@
 </script>
 
 <style scoped>
-    .headerBg {
-        background-color: #ccc !important;
-    }
+
 </style>

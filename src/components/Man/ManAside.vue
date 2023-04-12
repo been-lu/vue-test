@@ -36,8 +36,7 @@
 
             <el-menu-item-group>
                 <template slot="title">消息管理</template>
-                <el-menu-item index="2-4-1">消息查看与回复</el-menu-item>
-                <el-menu-item index="2-4-2">已解决问题查看</el-menu-item>
+                <el-menu-item index="/Man/ManMsg">消息查看与确认</el-menu-item>
             </el-menu-item-group>
 
         </el-submenu>
