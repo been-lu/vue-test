@@ -33,11 +33,14 @@
                 <el-menu-item index="2-3">合同接受</el-menu-item>
                 <el-menu-item index="2-4">合同管理</el-menu-item>
             </el-menu-item-group>
-
+            <el-menu-item-group>
+                <template slot="title">条例管理</template>
+                <el-menu-item index="/lawyer/LawyerRegulation">条例编辑</el-menu-item>
+            </el-menu-item-group>
             <el-menu-item-group>
                 <template slot="title">消息管理</template>
-                <el-menu-item index="2-4-1">消息提出</el-menu-item>
-                <el-menu-item index="2-4-2">消息查看</el-menu-item>
+                <el-menu-item index="/lawyer/lawyermsg">消息提出与查看</el-menu-item>
+
             </el-menu-item-group>
 
         </el-submenu>

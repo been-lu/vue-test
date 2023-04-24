@@ -46,7 +46,7 @@
                     <el-input v-model="form.description" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="描述">
-                    <el-input v-model="form.others" autocomplete="off"></el-input>
+                    <el-input v-model="form.others" autocomplete="off" :disabled="true"></el-input>
                 </el-form-item>
 
             </el-form>
@@ -70,6 +70,7 @@
                 pageNum: 1,
                 pageSize: 5,
 
+                dialogFormVisible: false,
                 form: {},
             }
         },
@@ -115,6 +116,7 @@
                 this.dialogFormVisible = true
                 this.form = {}
             },
+
 
             addMsg(){
                 //添加用户弹窗的确认键

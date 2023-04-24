@@ -39,6 +39,11 @@
                 <el-menu-item index="/Man/ManMsg">消息查看与确认</el-menu-item>
             </el-menu-item-group>
 
+            <el-menu-item-group>
+                <template slot="title">条例管理</template>
+                <el-menu-item index="/Man/ManRegulation">条例编辑</el-menu-item>
+            </el-menu-item-group>
+
         </el-submenu>
         <el-submenu index="3">
             <template slot="title"><i class="el-icon-menu"></i>

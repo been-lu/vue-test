@@ -28,6 +28,12 @@
                 <el-menu-item index="/user/userOrder">预约管理</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
+                <template slot="title">法律条款查看</template>
+                <el-menu-item index="/user/userRegulation">条款查看</el-menu-item>
+            </el-menu-item-group>
+
+
+            <el-menu-item-group>
                 <template slot="title">合同管理</template>
                 <el-menu-item index="2-3">合同提出</el-menu-item>
                 <el-menu-item index="2-4">合同管理</el-menu-item>

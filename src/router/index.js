@@ -16,6 +16,8 @@ const routes = [
       {path: 'ManLawyer', name: 'ManLawyer', component: () => import( '../views/admin/ManLawyer.vue'),},
       {path: 'ManPerson', name: 'ManPerson', component: () => import( '../views/admin/Person.vue'),},
       {path: 'ManMsg', name: 'ManMsg', component: () => import( '../views/admin/ManMsg.vue'),},
+        // {path: 'ManOrder', name: 'ManOrder', component: () => import( '../views/admin/Order.vue'),},
+      {path: 'ManRegulation', name: 'ManRegulation', component: () => import( '../views/admin/Regulation.vue'),},
 
     ]
   },
@@ -29,6 +31,8 @@ const routes = [
       {path: 'UserPerson', name: 'UserPerson', component: () => import( '../views/user/Person.vue'),},
       {path: 'UserOrder', name: 'UserOrder', component: () => import( '../views/user/Order.vue'),},
       {path: 'UserMsg', name: 'UserMsg', component: () => import( '../views/user/Msg.vue'),},
+      {path: 'UserRegulation', name: 'UserRegulation', component: () => import( '../views/user/Regulation.vue'),},
+
 
     ]
   },
@@ -40,6 +44,9 @@ const routes = [
     children: [
       {path: 'LawyerHome', name: 'LawyerHome', component: () => import( '../views/lawyer/LawyerHome.vue'),},
       {path: 'LawyerPerson', name: 'LawyerPerson', component: () => import( '../views/lawyer/Person.vue'),},
+      // {path: 'LawyerOrder', name: 'LawyerOrder', component: () => import( '../views/lawyer/Order.vue'),},
+      {path: 'LawyerMsg', name: 'LawyerMsg', component: () => import( '../views/lawyer/Msg.vue'),},
+      {path: 'LawyerRegulation', name: 'LawyerRegulation', component: () => import( '../views/lawyer/Regulation.vue'),},
 
     ]
   },

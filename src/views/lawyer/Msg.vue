@@ -70,6 +70,7 @@
                 pageNum: 1,
                 pageSize: 5,
 
+                dialogFormVisible:false,
                 form: {},
             }
         },
